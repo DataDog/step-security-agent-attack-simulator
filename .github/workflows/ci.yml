@@ -7,9 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       #Add StepSecurity Harden Runner from here onwards
-      - uses: step-security/harden-runner@v2
+      - name: Harden Runner
+        uses: step-security/harden-runner@128a63446a954579617e875aaab7d2978154e969 # v2.4.0
         with:
-          egress-policy: audit
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            codecov.io:443
+            github.com:443
+            objects.githubusercontent.com:443
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
